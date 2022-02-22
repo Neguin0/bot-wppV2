@@ -36,6 +36,11 @@ const checkVersion = async() => {
     let version = JSONData.currentVersion.split('.').map(v => parseInt(v));
     return version;
 };
+var vermelho = '\u001b[31m';
+var azul = '\u001b[34m';
+var reset = '\u001b[0m';
+var verde = '\u001B[32m';
+var amarelo = '\u001B[33m';
 var Menu = JSON.parse(fs.readFileSync("db.json"))
 var Dono = ['556199955345@s.whatsapp.net'];
 const LinkAPI = 'https://software-buscas.herokuapp.com';
@@ -114,7 +119,7 @@ const connect = async() => {
             else { console.log(`Unknown DisconnectReason: ${reason}|${connection}`) }
         }
         }catch(e){
-        	console.log("ERROR:", e);
+        	console.log(vermelho,"ERROR:", e);
         }
     })
     client.ev.on('group-participants.update', json => {});
@@ -124,7 +129,7 @@ const connect = async() => {
             if (m.type !== 'notify') return;
             const dados = m.messages[0];
             if (dados.key.remoteJid === 'status@broadcast') return;
-            console.log(JSON.stringify(dados, null, '  '));
+            //console.log(JSON.stringify(dados, null, '  '));
             const jid = dados.key.remoteJid;
             const id = dados.key.participant || dados.key.remoteJid;
             const jidBot = client.user.id.replace(/:.+@/, '@');
@@ -224,7 +229,8 @@ const connect = async() => {
                 info.listResponseMessage.contextInfo.quotedMessage.listMessage.sections &&
                 info.listResponseMessage.contextInfo.quotedMessage.listMessage.sections[0].title ?
                 info.listResponseMessage.contextInfo.quotedMessage.listMessage.sections[0].title : '';
-                
+            if(cmd && !isGroup) console.log(`${verde}[CMD] ${reset}/${msg} ${amarelo}de ${azul}${nick}`);
+            if(cmd && isGroup) console.log(`${verde}[CMD] ${reset}/${msg} ${amarelo}de ${azul}${nick} ${amarelo}em ${azul}${groupName}`);
             //================ [GATILHO] ==================
             client.sendReadReceipt(jid, id, [dados.key.id]);
             if (Botao == 'alo') {
@@ -544,9 +550,9 @@ const connect = async() => {
                         try {
                             await client.groupParticipantsUpdate(jid, [query + '@s.whatsapp.net'], 'remove');
                             reply('Otário KKKKKKKKKKK. Foi banido kkkkkkk!!');
-                        } catch (err) {
-                            reply('Error!');
-                            console.log(err);
+                        } catch (e) {
+                            console.log(vermelho,"ERROR:", e);
+                            reply("Error!");
                         }
                     }
                     break;
@@ -581,9 +587,9 @@ const connect = async() => {
                         try {
                             await client.groupParticipantsUpdate(jid, [query + '@s.whatsapp.net'], 'add');
                             reply('*Número adicionado com sucesso😁*');
-                        } catch (err) {
-                            reply('Error!');
-                            console.log(err);
+                        } catch (e) {
+                            console.log(vermelho,"ERROR:", e);
+                            reply("Error!");
                         }
                     }
                     break;
@@ -623,9 +629,9 @@ const connect = async() => {
                         try {
                             await client.groupParticipantsUpdate(jid, [query + '@s.whatsapp.net'], 'promote');
                             reply('*Número promovido à admin com sucesso😁*');
-                        } catch (err) {
-                            reply('Error!');
-                            console.log(err);
+                        } catch (e) {
+                            console.log(vermelho,"ERROR:", e);
+                            reply("Error!");
                         }
                     }
                     break;
@@ -662,9 +668,9 @@ const connect = async() => {
                         try {
                             await client.groupParticipantsUpdate(jid, [query + '@s.whatsapp.net'], 'demote');
                             reply('*Número promovido à membro com sucesso😁*');
-                        } catch (err) {
-                            reply('Error!');
-                            console.log(err);
+                        } catch (e) {
+                            console.log(vermelho,"ERROR:", e);
+                            reply("Error!");
                         }
                     }
                     break;
@@ -818,8 +824,8 @@ const connect = async() => {
                 	Menu.splice(Menu.indexOf(cmd), 1);
               	  fs.writeFileSync("db.json", JSON.stringify(Menu, null, '\t'));
             }
-        } catch (err) {
-            console.log(err);
+        } catch (e) {
+            console.log(vermelho,"ERROR:", e);
         }
     });
 };
