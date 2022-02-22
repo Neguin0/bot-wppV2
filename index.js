@@ -229,8 +229,8 @@ const connect = async() => {
                 info.listResponseMessage.contextInfo.quotedMessage.listMessage.sections &&
                 info.listResponseMessage.contextInfo.quotedMessage.listMessage.sections[0].title ?
                 info.listResponseMessage.contextInfo.quotedMessage.listMessage.sections[0].title : '';
-            if(cmd && !isGroup) console.log(`${verde}[CMD] ${reset}/${msg} ${amarelo}de ${azul}${nick}`);
-            if(cmd && isGroup) console.log(`${verde}[CMD] ${reset}/${msg} ${amarelo}de ${azul}${nick} ${amarelo}em ${azul}${groupName}`);
+            if(cmd && !isGroup) console.log(`${verde}[CMD] ${reset}${msg} ${amarelo}de ${azul}${nick}`);
+            if(cmd && isGroup) console.log(`${verde}[CMD] ${reset}${msg} ${amarelo}de ${azul}${nick} ${amarelo}em ${azul}${groupName}`);
             //================ [GATILHO] ==================
             client.sendReadReceipt(jid, id, [dados.key.id]);
             if (Botao == 'alo') {
