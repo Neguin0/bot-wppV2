@@ -484,7 +484,7 @@ const connect = async() => {
                     });
                     break;
                 case 'fakemsg':
-                    if (!mentioned) return reply('Você precisa marcar alguem!');
+                    if (!mentioned) return reply('Você precisa marcar uma mensagem!');
                     if (!text.includes('|')) return reply('Use: /fakemsg [MSG MARCADA] | [MSG DO BOT]');
                     var sep = text.split('|');
                     if (sep[0].length < 1 || sep[1].length < 1)
@@ -524,7 +524,7 @@ const connect = async() => {
                     if (!(isGroupAdmins || IsDono))
                         return reply('Porra muleke, tu acha q vai sair banindo assim? só ADM fdp!');
                     if (!isBotGroupAdmins) return reply('*To sem ademir😔*');
-                    if (mentions.length < 1 || !mentioned || text.length < 1) return reply ("*Você precisa marcar alguem!*");
+                    if (mentions.length < 1 && !mentioned && text.length < 1) return reply ("*Você precisa marcar alguem!*");
                     if (mentions.length >= 1) {
                         mentions.map(async function(i) {
                             await client.groupParticipantsUpdate(jid, [i], 'remove');
@@ -561,7 +561,7 @@ const connect = async() => {
                     if (!(isGroupAdmins || IsDono))
                         return reply('Porra muleke, tu acha q vai sair banindo assim? só ADM fdp!');
                     if (!isBotGroupAdmins) return reply('To sem ademir😔');
-                    if (mentions.length < 1 || !mentioned || text.length < 1) return reply ("*Você precisa marcar alguem!*");
+                    if (mentions.length < 1 && !mentioned && text.length < 1) return reply ("*Você precisa marcar alguem!*");
                     if (mentions.length >= 1) {
                         mentions.map(async function(i) {
                             await client.groupParticipantsUpdate(jid, [i], 'add');
@@ -603,7 +603,7 @@ const connect = async() => {
                     if (!(isGroupAdmins || IsDono))
                         return reply('Porra muleke, tu acha q vai sair banindo assim? só ADM fdp!');
                     if (!isBotGroupAdmins) return reply('To sem ademir😔');
-                    if (mentions.length < 1 || !mentioned || text.length < 1) return reply ("*Você precisa marcar alguem!*");
+                    if (mentions.length < 1 && !mentioned && text.length < 1) return reply ("*Você precisa marcar alguem!*");
                     if (mentions.length >= 1) {
                         mentions.map(async function(i) {
                             await client.groupParticipantsUpdate(jid, [i], 'promote');
@@ -642,7 +642,7 @@ const connect = async() => {
                     if (!(isGroupAdmins || IsDono))
                         return reply('Porra muleke, tu acha q vai sair banindo assim? só ADM fdp!');
                     if (!isBotGroupAdmins) return reply('To sem ademir😔');
-                    if (mentions.length < 1 || !mentioned || text.length < 1) return reply ("*Você precisa marcar alguem!*");
+                    if (mentions.length < 1 && !mentioned && text.length < 1) return reply ("*Você precisa marcar alguem!*");
                     if (mentions.length >= 1) {
                         mentions.map(async function(i) {
                             await client.groupParticipantsUpdate(jid, [i], 'demote');
