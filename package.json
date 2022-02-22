@@ -1,0 +1,13 @@
+{
+  "name": "bot-md2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@adiwajshing/baileys": "github:adiwajshing/baileys",
+    "@adiwajshing/keyed-db": "^0.2.4",
+    "axios": "^0.26.0",
+    "jimp": "^0.16.1",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
