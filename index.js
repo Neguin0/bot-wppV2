@@ -7,6 +7,10 @@ const {
 const Pino = require('pino');
 const axios = require('axios').default;
 const fs = require('fs');
+const app = require('express')();
+app.get("/", (req, res) => res.send("Bot WhatsApp MD"));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log("WebSite Online na porta:", port));
 const { writeFile } = require('fs/promises')
 const path = require('path').join;
 const {
