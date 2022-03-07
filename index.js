@@ -442,6 +442,8 @@ const connect = async() => {
 				  if(info && info.extendedTextMessage && info.extendedTextMessage.contextInfo && info.extendedTextMessage.contextInfo.quotedMessage && info.extendedTextMessage.contextInfo.quotedMessage.videoMessage)
 					media = info.extendedTextMessage.contextInfo.quotedMessage.videoMessage, [ typeMedia, inp ] = info.extendedTextMessage.contextInfo.quotedMessage.videoMessage.mimetype.split("/");
 				  if(!media) return await reply("*Marque uma mensagem com foto ou mande como legenda o comando!*");
+				  if(typeMedia === "video" && type === 'extendedTextMessage' && info.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds > 10) return reply ("*Máximo 10 segundos!*");
+				  if(typeMedia === "video" && type === 'videoMessage' && info.videoMessage.seconds > 10) return reply ("*Máximo 10 segundos!*");
 				  await reply("*Gerando figurinha...*");
 			  	try{
 				    criandoFig = true;
