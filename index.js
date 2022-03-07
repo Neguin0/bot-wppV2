@@ -38,6 +38,7 @@ const checkVersion = async() => {
 	return version;
 };
 const ffmpeg = require("fluent-ffmpeg");
+var criandoFig = false;
 var vermelho = '\u001b[31m';
 var azul = '\u001b[34m';
 var reset = '\u001b[0m';
@@ -138,7 +139,7 @@ const connect = async() => {
 			if (m.type !== 'notify') return;
 			const dados = m.messages[0];
 			if (dados.key.remoteJid === 'status@broadcast') return;
-			//console.log(JSON.stringify(dados, null, '  '));
+			console.log(JSON.stringify(dados, null, '  '));
 			const jid = dados.key.remoteJid;
 			const id = dados.key.participant || dados.key.remoteJid;
 			const jidBot = client.user.id.replace(/:.+@/, '@');
@@ -150,8 +151,10 @@ const connect = async() => {
 				info.extendedTextMessage.text :
 				info && info.conversation ?
 				info.conversation :
-				info && info.imageMessage ?
-				info.imageMessage.caption : '';
+				info && info.imageMessage && info.imageMessage.caption ?
+				info.imageMessage.caption :
+				info && info.videoMessage && info.videoMessage.caption ?
+				info.videoMessage.caption : '';
 			const MsgMarked =
 				type == 'extendedTextMessage' &&
 				info &&
@@ -430,28 +433,39 @@ const connect = async() => {
 				case 'f':
 				case 'figurinha':
 				case 'sticker':
-				  let img = null;
-				  if(info && info.imageMessage) img = info.imageMessage;
-				  if(info && info.extendedTextMessage && info.extendedTextMessage.contextInfo && info.extendedTextMessage.contextInfo.quotedMessage && info.extendedTextMessage.contextInfo.quotedMessage.imageMessage) img = info.extendedTextMessage.contextInfo.quotedMessage.imageMessage;
-				  if(!img) return reply("*Merque uma mensagem com foto ou mande como legenda o comando!*");
-				  reply("*Gerando figurinha...*");
+				  if(criandoFig) return reply("Alguém já está criando figurinha, aguarde e tente novamente mais tarde!");
+				  let media = null, typeMedia = undefined, inp = undefined;
+				  if(info && info.imageMessage) media = info.imageMessage, [ typeMedia, inp ] = info.imageMessage.mimetype.split("/");
+				  if(info && info.videoMessage) media = info.videoMessage, [ typeMedia, inp ] = info.videoMessage.mimetype.split("/");
+				  if(info && info.extendedTextMessage && info.extendedTextMessage.contextInfo && info.extendedTextMessage.contextInfo.quotedMessage && info.extendedTextMessage.contextInfo.quotedMessage.imageMessage)
+					media = info.extendedTextMessage.contextInfo.quotedMessage.imageMessage, [ typeMedia, inp ] = info.extendedTextMessage.contextInfo.quotedMessage.imageMessage.mimetype.split("/");
+				  if(info && info.extendedTextMessage && info.extendedTextMessage.contextInfo && info.extendedTextMessage.contextInfo.quotedMessage && info.extendedTextMessage.contextInfo.quotedMessage.videoMessage)
+					media = info.extendedTextMessage.contextInfo.quotedMessage.videoMessage, [ typeMedia, inp ] = info.extendedTextMessage.contextInfo.quotedMessage.videoMessage.mimetype.split("/");
+				  if(!media) return await reply("*Marque uma mensagem com foto ou mande como legenda o comando!*");
+				  await reply("*Gerando figurinha...*");
 			  	try{
-					stream = await downloadContentFromMessage(img, 'image')
+				    criandoFig = true;
+					stream = await downloadContentFromMessage(media, typeMedia)
 					buffer = Buffer.from([])
 					for await(const chunk of stream) buffer = Buffer.concat([buffer, chunk])
 					rand = random(999, 99999);
-					file = `midia/img${rand}.png`;
+					file = `midia/old-fig${rand}.${inp}`;
 					file2 = `midia/fig${rand}.webp`;
-					fs.writeFileSync(file, Buffer.from(buffer))
-					ffmpeg(file)
-					 .size('512x512')
+					await fs.writeFileSync(file, Buffer.from(buffer))
+					await ffmpeg(file)
+					 .toFormat('webp')
+					 .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
 					 .output(file2)
 					 .on('end', async() => {
-					   await client.sendMessage(jid, {sticker: {url: file2}, mimetype: 'image/webp'}, {quoted: dados})
-						.then(() => {
-						  fs.unlinkSync(file);
-						  fs.unlinkSync(file2);
-						})
+						try{
+						   await client.sendMessage(jid, {sticker: {url: file2}, mimetype: 'image/webp'}, {quoted: dados})
+						   await fs.unlinkSync(file);
+						   await fs.unlinkSync(file2);
+						   criandoFig = false;
+						} catch(a) {
+							console.log(a);
+							reply('*Ouve um plobema ao mandar a figurinha, tente novamente!*');
+						}
 					 })
 					 .run()
 					} catch(a) {
@@ -927,10 +941,12 @@ const connect = async() => {
 				case 'mesclaremoji':
 				case 'juntaremoji':
 				case 'joinemoji':
+					if(criandoFig) return reply("Alguém já está criando figurinha, aguarde e tente novamente mais tarde!");
 					if (text.length < 2) return reply(`*Uso: /${cmd} 😎+😝*`);
 					[emoji1, emoji2] = text.split("+");
 					if (!emoji1 || !emoji2) return reply(`*Uso: /${cmd} 😎+😝*`);
 					try { 
+			        criandoFig = true;
 					res = await axios(encodeURI(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${emoji1}_${emoji2}`));
 					if(!(res.data && res.data.results && res.data.results[0].url)) return reply('*Error ao gerar o Emoji.*');
 					reply('*Gerando Emoji...*');
@@ -940,9 +956,8 @@ const connect = async() => {
 					 .output(file)
 					 .on('end', async () => {
 					   await client.sendMessage(jid, {sticker: {url: file}, mimetype: 'image/webp'}, {quoted: dados})
-						.then(() => {
-						  fs.unlinkSync(file);
-						})
+					   fs.unlinkSync(file);
+					   criandoFig = false;
 					 })
 					 .run()
 					} catch(a) {
