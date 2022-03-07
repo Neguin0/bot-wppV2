@@ -466,12 +466,14 @@ const connect = async() => {
 						   criandoFig = false;
 						} catch(a) {
 							console.log(a);
+							criandoFig = false;
 							reply('*Ouve um plobema ao mandar a figurinha, tente novamente!*');
 						}
 					 })
 					 .run()
 					} catch(a) {
 						console.log(a);
+						criandoFig = false;
 						reply('*Error ao gerar a figurinha.*');
 					}
 					break
@@ -964,6 +966,7 @@ const connect = async() => {
 					 .run()
 					} catch(a) {
 						console.log(a);
+						criandoFig = false;
 					  reply('*Error ao gerar o Emoji.*');
 					}
 					break;
