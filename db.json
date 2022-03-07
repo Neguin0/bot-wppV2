@@ -1,17 +1,36 @@
-[
-	"menu",
-	"jdv",
-	"puxada",
-	"cpf",
-	"nome",
-	"placa",
-	"telefone",
-	"all",
-	"ban",
-	"add",
-	"daradmin",
-	"tiraradm",
-	"apagar",
-	"fakemsg",
-	"exc"
-]
+{
+	"Menu": [
+		"menu",
+		"jdv",
+		"puxada",
+		"cpf",
+		"nome",
+		"placa",
+		"telefone",
+		"all",
+		"ban",
+		"add",
+		"daradmin",
+		"tiraradm",
+		"apagar",
+		"fakemsg",
+		"exc",
+		"daradm",
+		"sorteio",
+		"mek",
+		"gostosos",
+		"joinemoji",
+		"tt",
+		"juntaremoji",
+		"s",
+		"f",
+		"savefig",
+		"envfig",
+		"block",
+		"desblock",
+		"blocks"
+	],
+	"Block": [
+		"558592794941@s.whatsapp.net"
+	]
+}
