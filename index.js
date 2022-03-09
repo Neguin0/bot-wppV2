@@ -145,7 +145,7 @@ const connect = async () => {
 			const jidBot = client.user.id.replace(/:.+@/, '@');
 			const nick = dados.pushName;
 			const info = dados.message;
-			const type = info && Object.keys(info).length > 0 ? Object.keys(info)[0] : '';
+			const type = dados && dados.message ? Object.keys(info)[0] : '';
 			const msg =
 				info && info.extendedTextMessage ?
 					info.extendedTextMessage.text :
@@ -606,20 +606,6 @@ const connect = async () => {
 						quoted: obj
 					});
 					break;
-				/*case 'sticker':
-				  case 's':
-				  case 'fig':
-				  case 'figurinha':
-					if(type === "imageMessage"){
-					  const buffer = await downloadContentFromMessage(info.imageMessage, 'image');
-					  await client.sendMessage(jid, { sticker: await convert(buffer) }, {quoted: dados});
-					} else if(type === "extendedTextMessage" && info.extendedTextMessage.quotedMessage && info.extendedTextMessage.quotedMessage.imageMessage){
-					  const buffer = await downloadContentFromMessage(info.extendedTextMessage.quotedMessage.imageMessage, 'image');
-					  await client.sendMessage(jid, { sticker: await convert(buffer) }, {quoted: dados});
-					} else {
-					  reply("*Apenas imagens fofo!*");
-					}
-				  break*/
 				case 'ban':
 				case 'banir':
 				case 'kick':
