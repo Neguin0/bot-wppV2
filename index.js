@@ -11,11 +11,7 @@ const {
 const Pino = require('pino');
 const axios = require('axios').default;
 const fs = require('fs');
-const app = require('express')();
-app.get("/", (req, res) => res.send("Bot WhatsApp MD"));
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log("WebSite Online na porta:", port));
-const { writeFile } = require('fs/promises')
+const { writeFile } = require('fs/promises');
 const path = require('path').join;
 const {
 	Boom
@@ -31,13 +27,16 @@ const {
 );
 const checkVersion = async () => {
 	let BASE_URL = 'https://web.whatsapp.com/check-update?version=1&platform=web';
-	const {
-		data: JSONData
-	} = await axios.get(BASE_URL);
+	const { data: JSONData } = await axios.get(BASE_URL);
 	let version = JSONData.currentVersion.split('.').map(v => parseInt(v));
 	return version;
 };
 const ffmpeg = require("fluent-ffmpeg");
+const app = require('express')();
+app.get("/", (req, res) => res.send("Bot WhatsApp MD"));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log("WebSite Online na porta:", port));
+
 var criandoFig = false;
 var vermelho = '\u001b[31m';
 var azul = '\u001b[34m';
