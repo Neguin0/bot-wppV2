@@ -250,10 +250,7 @@ const connect = async () => {
 			if (cmd && isGroup) console.log(`${verde}[CMD] ${reset}${msg} ${amarelo}de ${azul}${nick} ${amarelo}em ${azul}${groupName}${reset}`);
 			//================ [GATILHO] ==================
 			client.sendReadReceipt(jid, id, [dados.key.id]);
-			if (Block.includes(id) && cmd) return reply("*🚫 Você foi ~BLOQUEADO~ pelo meu Dono!*");
-			if (Botao == 'alo') {
-				reply('funcionando');
-			}
+			if (Block.includes(id) && cmd) return reply("*🚫 Você foi ~BLOQUEADO~ pelo meu Dono!*"); 
 			if (ListTitle === 'Ttt') {
 				if (PartidaTtt.chat !== '' && PartidaTtt.chat !== jid) return reply("*Jogo da velha já esta sendo jogado em outro grupo!*");
 				if (PartidaTtt.p1 === id && PartidaTtt.vez === 1) {
