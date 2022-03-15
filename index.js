@@ -33,10 +33,52 @@ const checkVersion = async () => {
 	return version;
 };
 const ffmpeg = require("fluent-ffmpeg");
+var clock = require('date-events')()
+
 const app = require('express')();
 app.get("/", (req, res) => res.send("Bot WhatsApp MD"));
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log("WebSite Online na porta:", port));
+
+const Horarios = [
+	{//Segunda
+		"13:15": "Matemática => Daphine(B5)",
+		"14:0": "Matemática => Daphine(B5)",
+		"14:45": "Bora pro Intervaloo!",
+		"15:0": "Inglês => Rafael(D6)",
+		"15:45": "Inglês => Rafael(D6)",
+		"16:30": "Bora pro Intervaloo!",
+		"16:45": "Historia => Eduardo(B5)",
+		"17:30": "Historia => Eduardo(B5)",
+		"18:15": "Vamos em bora para casaaa!",
+	},
+	{
+		"1:15":"foiiiiiii!"
+	},//Terça
+	{//Quarta
+		"13:15": "Português => Leandro(C3)",
+		"14:0": "Português => Leandro(C3)",
+		"14:45": "Bora pro Intervaloo!",
+		"15:0": "Geografia => Patricia(D4)",
+		"15:45": "Geografia => Patricia(D4)",
+		"16:30": "Bora pro Intervaloo!",
+		"16:45": "Filosofia => Evanilson(A5)",
+		"17:30": "Filosofia => Evanilson(A5)",
+		"18:15": "*Vamos em bora para casaaaa!*",
+	},
+	{},//Quita
+	{//Sexta
+		"13:15": "Sociologia => Serafim(D1)\n*Já vamos começar a sexta feira como? Com a aulinha de uns dos melhores Prof!!*",
+		"14:0": "Sociologia => Serafim(D1)",
+		"14:45": "Boora pro Intervaloo!",
+		"15:0": "Português => Leandro(C3)",
+		"15:45": "Português => Leandro(C3)",
+		"16:30": "Bora pro Intervaloo!!",
+		"16:45": "Matematica => Daphne(B6)",
+		"17:30": "Educação Fisica => Andre(Sala de EF)\n*Melhor Aula HEHE!*",
+		"18:15": "*Vamos em bora para casaaa!!!*",
+	}
+]
 
 var criandoFig = false;
 var vermelho = '\u001b[31m';
@@ -88,10 +130,9 @@ function sleep(ms) {
 }
 const Json = (json) => JSON.stringify(json, null, '\t');
 const getGroupAdmins = participants => {
-	admins = [];
-	for (let i of participants) {
+	let admins = [];
+	for (let i of participants)
 		i.admin ? admins.push(i.id) : '';
-	}
 	return admins;
 };
 function ramUsage() {
@@ -251,7 +292,7 @@ const connect = async () => {
 			if (cmd && isGroup) console.log(`${verde}[CMD] ${reset}${msg} ${amarelo}de ${azul}${nick} ${amarelo}em ${azul}${groupName}${reset}`);
 			//================ [GATILHO] ==================
 			client.sendReadReceipt(jid, id, [dados.key.id]);
-			if (Block.includes(id) && cmd) return reply("*🚫 Você foi ~BLOQUEADO~ pelo meu Dono!*"); 
+			if (Block.includes(id) && cmd) return reply("*🚫 Você foi ~BLOQUEADO~ pelo meu Dono!*");
 			if (ListTitle === 'Ttt') {
 				if (PartidaTtt.chat !== '' && PartidaTtt.chat !== jid) return reply("*Jogo da velha já esta sendo jogado em outro grupo!*");
 				if (PartidaTtt.p1 === id && PartidaTtt.vez === 1) {
@@ -619,7 +660,7 @@ const connect = async () => {
 						await client.groupParticipantsUpdate(jid, [mentioned], 'remove');
 						reply('Otário KKKKKKKKKKK. Foi banido kkkkkkk!');
 					} else {
-						var query = text
+						let query = text
 							.split('+').join('')
 							.split('-').join('')
 							.split(' ').join('')
@@ -654,7 +695,7 @@ const connect = async () => {
 						await client.groupParticipantsUpdate(jid, [mentioned], 'add').catch(function (e) { console.log("N add:", e); });
 						reply('*Número adicionado com sucesso😁*');
 					} else {
-						var query = text
+						query = text
 							.split('+').join('')
 							.split('-').join('')
 							.split(' ').join('')
@@ -691,7 +732,7 @@ const connect = async () => {
 						await client.groupParticipantsUpdate(jid, [mentioned], 'promote');
 						reply('*Número promovido à admin com sucesso😁*');
 					} else {
-						var query = text
+						query = text
 							.split('+').join('')
 							.split('-').join('')
 							.split(' ').join('')
@@ -725,7 +766,7 @@ const connect = async () => {
 						await client.groupParticipantsUpdate(jid, [mentioned], 'demote');
 						reply('*Número promovido à membro com sucesso😁*');
 					} else {
-						var query = text
+						query = text
 							.split('+').join('')
 							.split('-').join('')
 							.split(' ').join('')
@@ -757,7 +798,7 @@ const connect = async () => {
 						fs.writeFileSync("db.json", JSON.stringify({ Menu, Block }, null, '\t'));
 						reply('*Número bloqueado com sucesso😁*');
 					} else {
-						var query = text
+						query = text
 							.split('+').join('')
 							.split('-').join('')
 							.split(' ').join('')
@@ -790,7 +831,7 @@ const connect = async () => {
 						fs.writeFileSync("db.json", JSON.stringify({ Menu, Block }, null, '\t'));
 						reply('*Número desbloqueado com sucesso😁*');
 					} else {
-						var query = text
+						query = text
 							.split('+').join('')
 							.split('-').join('')
 							.split(' ').join('')
@@ -815,7 +856,7 @@ const connect = async () => {
 					break
 				case 'all':
 					if (!Puxada) return reply('Puxadas foram desativadas pelo meu dono');
-					var query = text
+					query = text
 						.split('.').join('')
 						.split('-').join('');
 					if (query.length < 11 || query.length > 11)
@@ -847,7 +888,7 @@ const connect = async () => {
 					break;
 				case 'cpf':
 					if (!Puxada) return reply('Puxadas foram desativadas pelo meu dono');
-					var query = text
+					query = text
 						.split('.').join('')
 						.split('-').join('');
 					if (query.length < 11 || query.length > 11)
@@ -864,7 +905,7 @@ const connect = async () => {
 					break;
 				case 'telefone':
 					if (!Puxada) return reply('Puxadas foram desativadas pelo meu dono');
-					var query = text
+					query = text
 						.split('+').join('')
 						.split('-').join('')
 						.split(' ').join('')
@@ -899,7 +940,7 @@ const connect = async () => {
 					break;
 				case 'placa':
 					if (!Puxada) return reply('Puxadas foram desativadas pelo meu dono');
-					var query = text
+					query = text
 						.split('+').join('')
 						.split('-').join('')
 						.split(' ').join('')
@@ -930,7 +971,7 @@ const connect = async () => {
 				case 'joinemoji':
 					if (criandoFig) return reply("Alguém já está criando figurinha, aguarde e tente novamente mais tarde!");
 					if (text.length < 2) return reply(`*Uso: /${cmd} 😎+😝*`);
-					[emoji1, emoji2] = text.split("+");
+					let [emoji1, emoji2] = text.split("+");
 					if (!emoji1 || !emoji2) return reply(`*Uso: /${cmd} 😎+😝*`);
 					try {
 						criandoFig = true;
@@ -994,5 +1035,13 @@ const connect = async () => {
 			console.log(vermelho, "ERROR:", e);
 		}
 	});
+
+	clock.on('minute', function (min) {
+		var data = new Date;
+		let now = data.getHours()+":"+min;
+		if (horarios[data.getDay()][now]) {
+			sendTo(Dono[0], `*🕑 Horário Automático*\n\n${horarios[data.getDay()][now]}`);
+		}
+	})
 };
 connect();
