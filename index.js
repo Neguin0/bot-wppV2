@@ -143,7 +143,8 @@ const connect = async () => {
 			if (dados.key.remoteJid === 'status@broadcast') return;
 			//console.log(JSON.stringify(dados, null, '  '));
 			const jid = dados.key.remoteJid;
-			const id = dados.key.participant.replace(/:.+@/, '@') || dados.key.remoteJid.replace(/:.+@/, '@');
+			var id = dados.key.participant || dados.key.remoteJid;
+			id = id.replace(/:.+@/, '@');
 			const jidBot = client.user.id.replace(/:.+@/, '@');
 			const nick = dados.pushName;
 			const info = dados.message;
