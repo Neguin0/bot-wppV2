@@ -609,7 +609,7 @@ const connect = async () => {
 					if (!(isGroupAdmins || IsDono))
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
 					if (!isBotGroupAdmins) return reply('*To sem ademir😔*');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							await client.groupParticipantsUpdate(jid, [i], 'remove');
@@ -644,7 +644,7 @@ const connect = async () => {
 					if (!(isGroupAdmins || IsDono))
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
 					if (!isBotGroupAdmins) return reply('To sem ademir😔');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							await client.groupParticipantsUpdate(jid, [i], 'add');
@@ -681,7 +681,7 @@ const connect = async () => {
 					if (!(isGroupAdmins || IsDono))
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
 					if (!isBotGroupAdmins) return reply('To sem ademir😔');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							await client.groupParticipantsUpdate(jid, [i], 'promote');
@@ -715,7 +715,7 @@ const connect = async () => {
 					if (!(isGroupAdmins || IsDono))
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
 					if (!isBotGroupAdmins) return reply('To sem ademir😔');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							await client.groupParticipantsUpdate(jid, [i], 'demote');
@@ -745,7 +745,7 @@ const connect = async () => {
 				case 'block':
 					if (!IsDono)
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							Block.push(i);
@@ -778,7 +778,7 @@ const connect = async () => {
 				case 'desblock':
 					if (!IsDono)
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							Block.splice(Block.indexOf(i), 1);
@@ -996,12 +996,11 @@ const connect = async () => {
 	});
 
 	clock.on('minute', function (min) {
-		console.log("Minuto:", min)
 		let data = new Date;
 		let now = data.getHours()+":"+min;
 		let sem = data.getDay()-1;
 		if (Horarios[sem][now]) {
-			console.log("HE => Enviou:", Horarios[sem][now])
+			console.log("Horario Escolar => Enviou:", Horarios[sem][now])
 			client.sendMessage(GrupoHE, {text:`*🕑 Horário Automático*\n\n${Horarios[sem][now]}`});
 		}
 	})
