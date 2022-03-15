@@ -53,7 +53,15 @@ const Horarios = [
 		"18:15": "Vamos em bora para casaaa!",
 	},
 	{
-		"1:15":"foiiiiiii!"
+		"1:29": "Português => Leandro(C3)",
+		"1:30": "Português => Leandro(C3)",
+		"1:31": "Bora pro Intervaloo!",
+		"1:32": "Geografia => Patricia(D4)",
+		"1:33": "Geografia => Patricia(D4)",
+		"1:34": "Bora pro Intervaloo!",
+		"1:35": "Filosofia => Evanilson(A5)",
+		"1:36": "Filosofia => Evanilson(A5)",
+		"1:37": "*Vamos em bora para casaaaa!*",
 	},//Terça
 	{//Quarta
 		"13:15": "Português => Leandro(C3)",
@@ -182,7 +190,7 @@ const connect = async () => {
 			if (dados.key.remoteJid === 'status@broadcast') return;
 			//console.log(JSON.stringify(dados, null, '  '));
 			const jid = dados.key.remoteJid;
-			const id = dados.key.participant || dados.key.remoteJid;
+			const id = dados.key.participant.replace(/:.+@/, '@') || dados.key.remoteJid.replace(/:.+@/, '@');
 			const jidBot = client.user.id.replace(/:.+@/, '@');
 			const nick = dados.pushName;
 			const info = dados.message;
@@ -197,7 +205,6 @@ const connect = async () => {
 							info && info.videoMessage && info.videoMessage.caption ?
 								info.videoMessage.caption : '';
 			const MsgMarked =
-				type == 'extendedTextMessage' &&
 					info &&
 					info.extendedTextMessage &&
 					info.extendedTextMessage.contextInfo &&
@@ -205,14 +212,12 @@ const connect = async () => {
 					info.extendedTextMessage.contextInfo.quotedMessage.conversation ?
 					info.extendedTextMessage.contextInfo.quotedMessage.conversation : '';
 			const mentioned =
-				type == 'extendedTextMessage' &&
 					info &&
 					info.extendedTextMessage &&
 					info.extendedTextMessage.contextInfo &&
 					info.extendedTextMessage.contextInfo.participant ?
 					info.extendedTextMessage.contextInfo.participant : '';
 			const mentions =
-				type == 'extendedTextMessage' &&
 					info &&
 					info.extendedTextMessage &&
 					info.extendedTextMessage.contextInfo &&
@@ -521,7 +526,7 @@ const connect = async () => {
 				case 'gostoso':
 					let rands = [], t = "", c = 0, ids = [], vezes = 5;
 					if (text.length > 0) vezes = parseInt(text);
-					if (parseInt(text) > 100) vezes = 5;
+					if (parseInt(text) > 20) vezes = 5;
 					for (let i = 0; i < vezes; i++) rands.push(await random(0, groupMembers.length));
 					for (let i of rands) {
 						c++;
@@ -613,7 +618,7 @@ const connect = async () => {
 				case 'apaga':
 				case 'delete':
 				case 'deletar':
-					if (!(isGroupAdmins || IsDono)) return reply('Não');
+					if (!(isGroupAdmins || IsDono)) return reply('Você não manda em mim otaro!');
 					if (mentioned !== jidBot) return reply('Você precisa marcar a msg do bot!');
 					await client.sendMessage(jid, {
 						delete: {
@@ -650,7 +655,7 @@ const connect = async () => {
 					if (!(isGroupAdmins || IsDono))
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
 					if (!isBotGroupAdmins) return reply('*To sem ademir😔*');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							await client.groupParticipantsUpdate(jid, [i], 'remove');
@@ -685,7 +690,7 @@ const connect = async () => {
 					if (!(isGroupAdmins || IsDono))
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
 					if (!isBotGroupAdmins) return reply('To sem ademir😔');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							await client.groupParticipantsUpdate(jid, [i], 'add');
@@ -722,7 +727,7 @@ const connect = async () => {
 					if (!(isGroupAdmins || IsDono))
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
 					if (!isBotGroupAdmins) return reply('To sem ademir😔');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							await client.groupParticipantsUpdate(jid, [i], 'promote');
@@ -756,7 +761,7 @@ const connect = async () => {
 					if (!(isGroupAdmins || IsDono))
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
 					if (!isBotGroupAdmins) return reply('To sem ademir😔');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							await client.groupParticipantsUpdate(jid, [i], 'demote');
@@ -786,7 +791,7 @@ const connect = async () => {
 				case 'block':
 					if (!IsDono)
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							Block.push(i);
@@ -819,7 +824,7 @@ const connect = async () => {
 				case 'desblock':
 					if (!IsDono)
 						return reply('Porra muleke, tu acha q vai sair fazendo merda assim? só ADM rapa!');
-					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*");
+					if (mentions.length < 1 && mentioned === '' && text.length < 1) return reply("*Você precisa marcar alguem!*"), console.log(Json(dados));
 					if (mentions.length >= 1) {
 						mentions.map(async function (i) {
 							Block.splice(Block.indexOf(i), 1);
@@ -1037,10 +1042,13 @@ const connect = async () => {
 	});
 
 	clock.on('minute', function (min) {
-		var data = new Date;
+		console.log("Minuto:", min)
+		let data = new Date;
 		let now = data.getHours()+":"+min;
-		if (horarios[data.getDay()][now]) {
-			sendTo(Dono[0], `*🕑 Horário Automático*\n\n${horarios[data.getDay()][now]}`);
+		let sem = data.getDay()-1;
+		if (Horarios[sem][now]) {
+			console.log("HE => Enviou:", Horarios[sem][now])
+			client.sendMessage(Dono[0], {text:`*🕑 Horário Automático*\n\n${Horarios[sem][now]}`});
 		}
 	})
 };
