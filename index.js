@@ -409,7 +409,7 @@ const connect = async () => {
 			//============= [COMANDOS] ================
 			if (!Menu.includes(cmd)) {
 				Menu.push(cmd);
-				fs.writeFileSync("db.json", JSON.stringify({ Menu, Block }, null, '\t'));
+				fs.writeFileSync("db.json", JSON.stringify({ Menu, Block, Horarios, GrupoHE }, null, '\t'));
 			}
 			switch (cmd) {
 				case 'savefig':
@@ -750,11 +750,11 @@ const connect = async () => {
 						mentions.map(async function (i) {
 							Block.push(i);
 						});
-						fs.writeFileSync("db.json", JSON.stringify({ Menu, Block }, null, '\t'));
+						fs.writeFileSync("db.json", JSON.stringify({ Menu, Block, Horarios, GrupoHE }, null, '\t'));
 						reply('*Número bloqueado com sucesso😁*');
 					} else if (mentioned) {
 						Block.push(mentioned);
-						fs.writeFileSync("db.json", JSON.stringify({ Menu, Block }, null, '\t'));
+						fs.writeFileSync("db.json", JSON.stringify({ Menu, Block, Horarios, GrupoHE }, null, '\t'));
 						reply('*Número bloqueado com sucesso😁*');
 					} else {
 						query = text
@@ -767,7 +767,7 @@ const connect = async () => {
 						if (isNaN(query)) return reply('*ERROR*\nApenas números!');
 						try {
 							Block.push(query + '@s.whatsapp.net');
-							fs.writeFileSync("db.json", JSON.stringify({ Menu, Block }, null, '\t'));
+							fs.writeFileSync("db.json", JSON.stringify({ Menu, Block, Horarios, GrupoHE }, null, '\t'));
 							reply('*Número bloqueado com sucesso😁*');
 						} catch (e) {
 							console.log(vermelho, "ERROR:", e);
@@ -783,11 +783,11 @@ const connect = async () => {
 						mentions.map(async function (i) {
 							Block.splice(Block.indexOf(i), 1);
 						});
-						fs.writeFileSync("db.json", JSON.stringify({ Menu, Block }, null, '\t'));
+						fs.writeFileSync("db.json", JSON.stringify({ Menu, Block, Horarios, GrupoHE }, null, '\t'));
 						reply('*Número desbloqueado com sucesso😁*');
 					} else if (mentioned) {
 						Block.splice(Block.indexOf(mentioned), 1);
-						fs.writeFileSync("db.json", JSON.stringify({ Menu, Block }, null, '\t'));
+						fs.writeFileSync("db.json", JSON.stringify({ Menu, Block, Horarios, GrupoHE }, null, '\t'));
 						reply('*Número desbloqueado com sucesso😁*');
 					} else {
 						query = text
@@ -800,7 +800,7 @@ const connect = async () => {
 						if (isNaN(query)) return reply('*ERROR*\nApenas números!');
 						try {
 							Block.splice(Block.indexOf(query + '@s.whatsapp.net'), 1);
-							fs.writeFileSync("db.json", JSON.stringify({ Menu, Block }, null, '\t'));
+							fs.writeFileSync("db.json", JSON.stringify({ Menu, Block, Horarios, GrupoHE }, null, '\t'));
 							reply('*Número desbloqueado com sucesso😁*');
 						} catch (e) {
 							console.log(vermelho, "ERROR:", e);
@@ -988,7 +988,7 @@ const connect = async () => {
 					break;
 				default:
 					Menu.splice(Menu.indexOf(cmd), 1);
-					fs.writeFileSync("db.json", JSON.stringify({ Menu, Block }, null, '\t'));
+					fs.writeFileSync("db.json", JSON.stringify({ Menu, Block, Horarios, GrupoHE }, null, '\t'));
 			}
 		} catch (e) {
 			console.log(vermelho, "ERROR:", e);
