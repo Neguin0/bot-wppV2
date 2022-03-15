@@ -39,54 +39,7 @@ const app = require('express')();
 app.get("/", (req, res) => res.send("Bot WhatsApp MD"));
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log("WebSite Online na porta:", port));
-
-const Horarios = [
-	{//Segunda
-		"13:15": "Matemática => Daphine(B5)",
-		"14:0": "Matemática => Daphine(B5)",
-		"14:45": "Bora pro Intervaloo!",
-		"15:0": "Inglês => Rafael(D6)",
-		"15:45": "Inglês => Rafael(D6)",
-		"16:30": "Bora pro Intervaloo!",
-		"16:45": "Historia => Eduardo(B5)",
-		"17:30": "Historia => Eduardo(B5)",
-		"18:15": "Vamos em bora para casaaa!",
-	},
-	{
-		"1:29": "Português => Leandro(C3)",
-		"1:30": "Português => Leandro(C3)",
-		"1:31": "Bora pro Intervaloo!",
-		"1:32": "Geografia => Patricia(D4)",
-		"1:33": "Geografia => Patricia(D4)",
-		"1:34": "Bora pro Intervaloo!",
-		"1:35": "Filosofia => Evanilson(A5)",
-		"1:36": "Filosofia => Evanilson(A5)",
-		"1:37": "*Vamos em bora para casaaaa!*",
-	},//Terça
-	{//Quarta
-		"13:15": "Português => Leandro(C3)",
-		"14:0": "Português => Leandro(C3)",
-		"14:45": "Bora pro Intervaloo!",
-		"15:0": "Geografia => Patricia(D4)",
-		"15:45": "Geografia => Patricia(D4)",
-		"16:30": "Bora pro Intervaloo!",
-		"16:45": "Filosofia => Evanilson(A5)",
-		"17:30": "Filosofia => Evanilson(A5)",
-		"18:15": "*Vamos em bora para casaaaa!*",
-	},
-	{},//Quita
-	{//Sexta
-		"13:15": "Sociologia => Serafim(D1)\n*Já vamos começar a sexta feira como? Com a aulinha de uns dos melhores Prof!!*",
-		"14:0": "Sociologia => Serafim(D1)",
-		"14:45": "Boora pro Intervaloo!",
-		"15:0": "Português => Leandro(C3)",
-		"15:45": "Português => Leandro(C3)",
-		"16:30": "Bora pro Intervaloo!!",
-		"16:45": "Matematica => Daphne(B6)",
-		"17:30": "Educação Fisica => Andre(Sala de EF)\n*Melhor Aula HEHE!*",
-		"18:15": "*Vamos em bora para casaaa!!!*",
-	}
-]
+var GrupoHE = "556199955345@s.whatsapp.net";
 
 var criandoFig = false;
 var vermelho = '\u001b[31m';
@@ -94,7 +47,7 @@ var azul = '\u001b[34m';
 var reset = '\u001b[0m';
 var verde = '\u001B[32m';
 var amarelo = '\u001B[33m';
-var { Menu, Block } = JSON.parse(fs.readFileSync("db.json"))
+var { Menu, Block, Horarios, GrupoHE } = JSON.parse(fs.readFileSync("db.json"))
 var Dono = ['556199955345@s.whatsapp.net'];
 const LinkAPI = 'https://software-buscas.herokuapp.com';
 var Puxada = false;
@@ -1048,7 +1001,7 @@ const connect = async () => {
 		let sem = data.getDay()-1;
 		if (Horarios[sem][now]) {
 			console.log("HE => Enviou:", Horarios[sem][now])
-			client.sendMessage(Dono[0], {text:`*🕑 Horário Automático*\n\n${Horarios[sem][now]}`});
+			client.sendMessage(GrupoHE, {text:`*🕑 Horário Automático*\n\n${Horarios[sem][now]}`});
 		}
 	})
 };

@@ -33,5 +33,63 @@
 	],
 	"Block": [
 		"558592794941@s.whatsapp.net"
-	]
+	],
+	"Horarios":[
+		{
+			"13:15": "Matemática => Daphine(B5)",
+			"14:0": "Matemática => Daphine(B5)",
+			"14:45": "Bora pro Intervaloo!",
+			"15:0": "Inglês => Rafael(D6)",
+			"15:45": "Inglês => Rafael(D6)",
+			"16:30": "Bora pro Intervaloo!",
+			"16:45": "Historia => Eduardo(B5)",
+			"17:30": "Historia => Eduardo(B5)",
+			"18:15": "Vamos em bora para casaaa!"
+		},
+		{
+			"13:15": "Português => Silvia(C4)",
+			"14:0": "Português => Silvia(C4)",
+			"14:45": "Bora pro Intervaloo!",
+			"15:0": "Cerrado Vivo => Patricia(D4)",
+			"15:45": "Cerrado Vivo => Patricia(D4)",
+			"16:30": "Bora pro Intervaloo!",
+			"16:45": "Matematica => Daphne(B6)",
+			"17:30": "Matematica => Daphne(B6)",
+			"18:15": "*Vamos em bora para casaaaa!*"
+		},
+		{
+			"13:15": "Português => Leandro(C3)",
+			"14:0": "Português => Leandro(C3)",
+			"14:45": "Bora pro Intervaloo!",
+			"15:0": "Geografia => Patricia(D4)",
+			"15:45": "Geografia => Patricia(D4)",
+			"16:30": "Bora pro Intervaloo!",
+			"16:45": "Filosofia => Evanilson(A5)",
+			"17:30": "Filosofia => Evanilson(A5)",
+			"18:15": "*Vamos em bora para casaaaa!*"
+		},
+		{
+			"13:15": "Projeto de Vida => Maione(A3)",
+			"14:0": "Projeto de Vida => Maione(A3)",
+			"14:45": "Bora pro Intervaloo!",
+			"15:0": "Protagonismo Juvenil => Davi(D2)",
+			"15:45": "Protagonismo Juvenil => Davi(D2)",
+			"16:30": "Bora pro Intervaloo!",
+			"16:45": "Você viu a Ciência por ai? => Ana Paula(B3)",
+			"17:30": "Você viu a Ciência por ai? => Ana Paula(B3)",
+			"18:15": "*Vamos em bora para casaaaa!*"
+		},
+		{
+			"13:15": "Sociologia => Serafim(D1)\n*Já vamos começar a sexta feira como? Com a aulinha de uns dos melhores Prof!!*",
+			"14:0": "Sociologia => Serafim(D1)",
+			"14:45": "Boora pro Intervaloo!",
+			"15:0": "Português => Leandro(C3)",
+			"15:45": "Português => Leandro(C3)",
+			"16:30": "Bora pro Intervaloo!!",
+			"16:45": "Matematica => Daphne(B6)",
+			"17:30": "Educação Fisica => Andre(Sala de EF)\n*Melhor Aula HEHE!*",
+			"18:15": "*Vamos em bora para casaaa!!!*"
+		}
+	],
+	"GrupoHE":"556199955345@s.whatsapp.net"
 }
